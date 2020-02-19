@@ -1,0 +1,3 @@
+[submodule "aws/amplify"]
+	path = aws/amplify
+	url = git@github.com:sabmeua/aws-amplify-vue.git
