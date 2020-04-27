@@ -17,7 +17,7 @@ resource "aws_db_instance" "app_db" {
   performance_insights_enabled = true
   deletion_protection  = var.app_env == "production" ? true : false
 
-  parameter_group_name = "${aws_db_parameter_group.app_db.name}"
+  parameter_group_name = aws_db_parameter_group.app_db.name
 
   vpc_security_group_ids = ["${aws_security_group.rds_app_db.id}"]
 
@@ -25,11 +25,11 @@ resource "aws_db_instance" "app_db" {
   backup_retention_period = 7
   auto_minor_version_upgrade = false
   monitoring_interval = 60
-  monitoring_role_arn = "${data.aws_iam_role.rds_monitoring_role.arn}"
+  monitoring_role_arn = data.aws_iam_role.rds_monitoring_role.arn
   skip_final_snapshot = true
 
   tags = {
-    CmBillingGroup = "${var.app_name}-${var.app_env}"
+    CmBillingGroup = var.app_name}-${var.app_env
   }
 }
 
@@ -44,7 +44,7 @@ resource "aws_db_parameter_group" "app_db" {
 
 resource "aws_security_group" "rds_app_db" {
   name   = "rds-app-db"
-  vpc_id = "${data.aws_vpc.local.id}"
+  vpc_id = data.aws_vpc.local.id
 }
 
 resource "aws_security_group_rule" "allow_postgres_vpc" {
@@ -52,6 +52,6 @@ resource "aws_security_group_rule" "allow_postgres_vpc" {
   from_port         = 5432
   to_port           = 5432
   protocol          = "tcp"
-  cidr_blocks       = ["${data.aws_vpc.local.cidr_block}"]
-  security_group_id = "${aws_security_group.rds_app_db.id}"
+  cidr_blocks       = [data.aws_vpc.local.cidr_block]
+  security_group_id = aws_security_group.rds_app_db.id
 }
