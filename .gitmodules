@@ -1,3 +1,6 @@
 [submodule "aws/amplify"]
 	path = aws/amplify
 	url = git@github.com:sabmeua/aws-amplify-vue.git
+[submodule "aws/apigateway"]
+	path = aws/apigateway
+	url = git@github.com:sabmeua/terraform_apigateway_example.git
